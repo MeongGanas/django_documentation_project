@@ -17,5 +17,5 @@ urlpatterns = [
     # ex: /polls/5/vote/
     path("<int:question_id>/vote/", views.vote, name="vote")
 
-    #  <int:question_id>. Menggunakan kurung sudut "menangkap" bagian dari URL dan mengirimnya sebagai argumen kata kunci ke fungsi tampilan. Titik dua (:) memisahkan perubah dan pola nama.
+    #  <int:question_id>. Menggunakan kurung sudut "menangkap" bagian dari URL dan mengirimnya sebagai argumen kata kunci ke fungsi tampilan. Titik dua (:) memisahkan koverter dan pola nama.
 ]
