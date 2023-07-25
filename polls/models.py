@@ -30,6 +30,7 @@ class Question(models.Model):
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    # ForeignKey -> sebagai penyambung dari tabel choice ke tabel question
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 

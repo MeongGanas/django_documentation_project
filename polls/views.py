@@ -29,6 +29,7 @@ def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
+        # menangkap id choice yang di kirimkan melalui url dengan method post dan mengambil data choice yang di pilih
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
         return render(
