@@ -1,29 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Details</title>
-  </head>
-  <body>
-    <form action="{% url 'polls:vote' question.id %}" method="post">
-      {% csrf_token %}
-      <fieldset>
-        <legend><h1>{{ question.question_text }}</h1></legend>
-        {% if error_message %}
-        <p><strong>{{ error_message }}</strong></p>
-        {% endif %} {% for choice in question.choice_set.all %}
+{% extends 'base.html' %} {% block content %}
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+  {% csrf_token %}
+  <fieldset>
+    <legend><h1>{{ question.question_text }}</h1></legend>
+    {% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+    <ul class="list-group">
+      {% for choice in question.choice_set.all %}
+      <li class="list-group-item">
         <input
+          class="form-check-input me-1"
           type="radio"
           name="choice"
-          id="choice{{ forloop.counter }}"
           value="{{ choice.id }}"
+          id="choice{{ forloop.counter }}"
         />
-        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label
-        ><br />
-        {% endfor %}
-      </fieldset>
-      <input type="submit" value="Vote" />
-    </form>
-  </body>
-</html>
+        <label class="form-check-label" for="choice{{ forloop.counter }}"
+          >{{ choice.choice_text }}</label
+        >
+      </li>
+      {% endfor %}
+    </ul>
+  </fieldset>
+  <input type="submit" class="btn btn-primary px-4 mt-3" value="Vote" />
+</form>
+
+{% endblock content %}
