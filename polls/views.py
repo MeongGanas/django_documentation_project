@@ -2,9 +2,16 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
+# These views represent a common case of basic web development: getting data from the database according to a parameter passed in the URL, loading a template and returning the rendered template. Because this is so common, Django provides a shortcut, called the “generic views” system.
+
+from django.db.models import F
 
 from .models import Choice, Question
 
+    
+    
+# kalau pakai generic.ListView dan generic.DetailView secara default pake template 
+# <app name>/<model name>_<template name>
 
 class IndexView(generic.ListView):
     template_name = "polls/index.html"
@@ -41,7 +48,8 @@ def vote(request, question_id):
             },
         )
     else:
-        selected_choice.votes += 1
+        selected_choice.votes = F("votes") + 1
+        # F() untuk menghindari kondisi saat 2 org atau lbh mencoba memilih secara bersamaan
         selected_choice.save()
 
         # Always return an HttpResponseRedirect after successfully dealing
